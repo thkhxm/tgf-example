@@ -23,6 +23,14 @@ go work use common
 //重复common的创建方式,分别创建其余的业务项目
 ```
 
+编辑common目录下的go.mod文件,替换cors版本,在rpcx1.8.0中,使用的是1.8.2版本的cors,所以需要对cors进行替换
+
+```go
+replace github.com/rs/cors v1.8.3 => github.com/rs/cors v1.8.2
+```
+
+
+
 ## 业务项目初始化
 
 **以下行为并不是约束，但是建议遵循这种规范**
@@ -125,4 +133,11 @@ func Startup() {
 
 ```
 
-- 
+- WithRandomServicePort   在一定范围内随机监听端口, 例子中为8000-8010之间,随机一个端口
+- WithService    注入单个服务, 可以使用链式调用,注入多个服务在单个进程中. 例如在一个启动项目中,启动login和hall两个服务.只需要在后面加WithService(newHallService())即可
+- Run    启动rpc服务
+
+
+
+
+

@@ -1,0 +1,1 @@
+protoc --go_out=./.. --plugin=./../../kit/proto/mac/protoc-gen-go login.proto
