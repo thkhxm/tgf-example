@@ -1,4 +1,4 @@
-# Mac
+# Mac 
 
 在mac系统下,我们首先需要安装protoc,下面我们使用brew安装
 
@@ -48,4 +48,6 @@ protoc --go_out=./.. --plugin=./../../kit/proto/mac/protoc-gen-go login.proto
 ```
 
 最终得到生成的login.pb.go文件
+
+# Win
 
