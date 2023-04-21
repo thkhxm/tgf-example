@@ -2,13 +2,11 @@ package login
 
 import (
 	"context"
-	"github.com/thkhxm/tgf/db"
-	"github.com/thkhxm/tgf/example/login/entity"
-	login_pb "github.com/thkhxm/tgf/example/login/pb"
+	"github.com/golang/protobuf/proto"
+	"github.com/thkhxm/tgf/example/login/pb"
 	"github.com/thkhxm/tgf/log"
 	"github.com/thkhxm/tgf/rpc"
 	"github.com/thkhxm/tgf/util"
-	"time"
 )
 
 //***************************************************
@@ -25,39 +23,41 @@ var (
 	serviceName = "login"
 )
 
-const (
-	account_mem_time_out              = 60 * 60 * 12
-	account_cache_time_out            = time.Hour * 24 * 3
-	account_longevity_update_interval = time.Second * 5
-)
-
 // service
 // @Description: 登录相关服务
 type service struct {
 	rpc.Module
-	accountDataManager db.IAutoCacheService[string, *entity.AccountModel]
+	m *manager
 }
 
-func (this *service) Login(ctx context.Context, args *[]byte, reply *[]byte) error {
+func (this *service) Login(ctx context.Context, args *[]byte, reply *[]byte) (err error) {
 	var (
 		//将字节数组转换为pb数据
-		req = util.ConvertToPB[*login_pb.LoginReq](*args)
-		//res = &login_pb.LoginRes{}
+		req = util.ConvertToPB[*pb.LoginReq](*args)
+		res = &pb.LoginRes{}
 	)
-	accountModel, _ := this.accountDataManager.Get(req.Account)
-	if accountModel == nil {
+	defer func() {
+		*reply, _ = proto.Marshal(res)
+	}()
+	res.Error, res.UserId = this.m.doLogin(req.Account, req.Password)
+	if res.Error == 0 {
 
+		r, e := rpc.SendRPCMessage(ctx, rpc.Login.New(&rpc.LoginReq{
+			UserId:         "res.UserId",
+			TemplateUserId: rpc.GetTemplateUserId(ctx),
+		}, &rpc.LoginRes{}))
+		if e != nil {
+			log.DebugTag("login", "user login fail account=%v password=%v code=%v ", req.Account, req.Password, r.ErrorCode)
+		}
 	}
-	return nil
+	log.InfoTag("login", "user login account=%v password=%v userId=%v", req.Account, req.Password, res.UserId)
+	return
+
 }
 
 func (this *service) Init() {
 	var ()
-	//实例化一个完整的
-	accountDataBuilder := db.NewAutoCacheBuilder[string, *entity.AccountModel]()
-	this.accountDataManager = accountDataBuilder.WithMemCache(account_mem_time_out).
-		WithAutoCache(RedisKeyAccount, account_cache_time_out).
-		WithLongevityCache(account_longevity_update_interval).New()
+
 }
 
 func (s *service) GetName() string {

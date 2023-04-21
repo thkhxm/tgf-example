@@ -1,4 +1,4 @@
-package login
+package gate
 
 import "github.com/thkhxm/tgf/rpc"
 
@@ -8,14 +8,12 @@ import "github.com/thkhxm/tgf/rpc"
 //@QQ群 7400585
 //author tim.huang<thkhxm@gmail.com>
 //@Description
-//2023/4/15
+//2023/4/20
 //***************************************************
 
 func Startup() {
 	r := rpc.NewRPCServer().
-		WithRandomServicePort(8000, 8010).
-		WithService(newService()).
-		WithWhiteService("Login").
+		WithGateway("8898").
 		Run()
 	<-r
 	//Server Destroy Logic

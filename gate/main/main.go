@@ -1,4 +1,6 @@
-package login
+package main
+
+import "github.com/thkhxm/tgf/example/gate"
 
 //***************************************************
 //@Link  https://github.com/thkhxm/tgf
@@ -6,8 +8,9 @@ package login
 //@QQ群 7400585
 //author tim.huang<thkhxm@gmail.com>
 //@Description
-//2023/4/16
+//2023/4/20
 //***************************************************
 
-type ITCPLogin interface {
+func main() {
+	gate.Startup()
 }

@@ -1,1 +1,1 @@
-C:\Users\AUSA\Documents\IdeaProject\tgf-example\kit\proto\protoc.exe --go_out=./.. --plugin=protoc-gen-go=C:\Users\AUSA\Documents\IdeaProject\tgf-example\kit\proto\protoc-gen-go.exe *.proto
+C:\Users\AUSA\Documents\IdeaProject\tgf-example\kit\proto\protoc.exe --proto_path=C:\ --go_out=C:\Users\AUSA\Documents\IdeaProject\tgf-example\login --plugin=protoc-gen-go=C:\Users\AUSA\Documents\IdeaProject\tgf-example\kit\proto\protoc-gen-go.exe C:\Users\AUSA\Documents\IdeaProject\tgf-example\login\internal\proto\*.proto
