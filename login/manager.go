@@ -26,8 +26,8 @@ type manager struct {
 	accountDataManager db.IAutoCacheService[string, *entity.AccountModel]
 }
 
-func (this *manager) doLogin(account, password string) (errorCode uint32, userId string) {
-	accountModel, _ := this.accountDataManager.Get(account)
+func (m *manager) doLogin(account, password string) (errorCode uint32, userId string) {
+	accountModel, _ := m.accountDataManager.Get(account)
 	if accountModel == nil || accountModel.Password != password {
 		errorCode = define.ErrorCodeAccountNotFound
 		log.DebugTag("login", "user login failed , account not found")
@@ -37,10 +37,10 @@ func (this *manager) doLogin(account, password string) (errorCode uint32, userId
 	return
 }
 
-func (this *manager) initStruct() {
+func (m *manager) initStruct() {
 	//实例化一个完整的
 	accountDataBuilder := db.NewAutoCacheBuilder[string, *entity.AccountModel]()
-	this.accountDataManager = accountDataBuilder.
+	m.accountDataManager = accountDataBuilder.
 		WithMemCache(account_mem_time_out).
 		WithAutoCache(RedisKeyAccount, account_cache_time_out).
 		WithLongevityCache(account_longevity_update_interval).

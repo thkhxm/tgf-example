@@ -1,6 +1,4 @@
-package service
-
-import "context"
+package main
 
 //***************************************************
 //@Link  https://github.com/thkhxm/tgf
@@ -8,9 +6,9 @@ import "context"
 //@QQ群 7400585
 //author tim.huang<thkhxm@gmail.com>
 //@Description
-//2023/4/16
+//2023/4/23
 //***************************************************
 
-type ILoginService interface {
-	Login(ctx context.Context, args *[]byte, reply *[]byte) (err error)
+func main() {
+
 }

@@ -2,11 +2,9 @@ package login
 
 import (
 	"context"
-	"github.com/golang/protobuf/proto"
 	"github.com/thkhxm/tgf/example/login/pb"
 	"github.com/thkhxm/tgf/log"
 	"github.com/thkhxm/tgf/rpc"
-	"github.com/thkhxm/tgf/util"
 )
 
 //***************************************************
@@ -30,32 +28,34 @@ type service struct {
 	m *manager
 }
 
-func (this *service) Login(ctx context.Context, args *[]byte, reply *[]byte) (err error) {
+func (s *service) Login(ctx context.Context, args *rpc.Args[*pb.LoginReq], reply *rpc.Reply[*pb.LoginRes]) (err error) {
 	var (
 		//将字节数组转换为pb数据
-		req = util.ConvertToPB[*pb.LoginReq](*args)
+		req = args.GetData()
 		res = &pb.LoginRes{}
 	)
 	defer func() {
-		*reply, _ = proto.Marshal(res)
+		reply.SetData(res)
 	}()
-	res.Error, res.UserId = this.m.doLogin(req.Account, req.Password)
+	//执行登录逻辑，如果登录成功返回用户userId
+	res.Error, res.UserId = s.m.doLogin(req.Account, req.Password)
+	//登录成功，调用网关同步用户userId
 	if res.Error == 0 {
-
 		r, e := rpc.SendRPCMessage(ctx, rpc.Login.New(&rpc.LoginReq{
-			UserId:         "res.UserId",
+			UserId:         res.UserId,
 			TemplateUserId: rpc.GetTemplateUserId(ctx),
 		}, &rpc.LoginRes{}))
 		if e != nil {
 			log.DebugTag("login", "user login fail account=%v password=%v code=%v ", req.Account, req.Password, r.ErrorCode)
+			res.Error = uint32(r.ErrorCode)
+			return
 		}
 	}
 	log.InfoTag("login", "user login account=%v password=%v userId=%v", req.Account, req.Password, res.UserId)
 	return
-
 }
 
-func (this *service) Init() {
+func (s *service) Init() {
 	var ()
 
 }
