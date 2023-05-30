@@ -1,6 +1,10 @@
 package service
 
-import "context"
+import (
+	"context"
+	"github.com/thkhxm/tgf/example/login/pb"
+	"github.com/thkhxm/tgf/rpc"
+)
 
 //***************************************************
 //@Link  https://github.com/thkhxm/tgf
@@ -12,5 +16,5 @@ import "context"
 //***************************************************
 
 type ILoginService interface {
-	Login(ctx context.Context, args *[]byte, reply *[]byte) (err error)
+	Login(ctx context.Context, args *rpc.Args[*pb.LoginReq], reply *rpc.Reply[*pb.LoginRes]) (err error)
 }

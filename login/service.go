@@ -17,8 +17,8 @@ import (
 //***************************************************
 
 var (
-	version     = "1.0"
-	serviceName = "login"
+	Version    = "1.0"
+	ModuleName = "login"
 )
 
 // service
@@ -57,7 +57,6 @@ func (s *service) Login(ctx context.Context, args *rpc.Args[*pb.LoginReq], reply
 
 func (s *service) Init() {
 	var ()
-
 }
 
 func (s *service) GetName() string {
@@ -79,7 +78,7 @@ func (s *service) Destroy(sub rpc.IService) {
 
 func newService() rpc.IService {
 	s := &service{}
-	s.Name = serviceName
-	s.Version = version
+	s.Name = ModuleName
+	s.Version = Version
 	return s
 }

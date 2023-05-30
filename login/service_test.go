@@ -2,7 +2,9 @@ package login_test
 
 import (
 	"github.com/golang/protobuf/proto"
-	login_pb "github.com/thkhxm/tgf/example/login/pb"
+	"github.com/thkhxm/tgf/example/common/api"
+	"github.com/thkhxm/tgf/example/login/pb"
+	"github.com/thkhxm/tgf/robot"
 	"github.com/thkhxm/tgf/util"
 	"testing"
 )
@@ -17,11 +19,17 @@ import (
 // ***************************************************
 
 func TestConvertToPB(t *testing.T) {
-	req := &login_pb.LoginReq{
+	req := &pb.LoginReq{
 		Account:  "tim",
 		Password: "1234",
 	}
 	data, _ := proto.Marshal(req)
-	c := util.ConvertToPB[*login_pb.LoginReq](data)
+	c := util.ConvertToPB[*pb.LoginReq](data)
 	t.Log(c.Account, ":", c.Password)
+}
+
+func Test_service_Login(t *testing.T) {
+	robot := robot.NewRobotWs("/tgf")
+	robot.Connect("127.0.0.1:8443")
+	robot.SendMessage(api.Login.ModuleName, api.Login.Name, &pb.LoginReq{})
 }

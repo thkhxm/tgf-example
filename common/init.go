@@ -1,7 +1,5 @@
 package common
 
-import "github.com/thkhxm/tgf/log"
-
 //***************************************************
 //@Link  https://github.com/thkhxm/tgf
 //@Link  https://gitee.com/timgame/tgf
@@ -12,5 +10,5 @@ import "github.com/thkhxm/tgf/log"
 //***************************************************
 
 func init() {
-	log.Info("------------------")
+
 }
