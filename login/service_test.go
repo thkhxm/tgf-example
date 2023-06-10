@@ -3,7 +3,7 @@ package login_test
 import (
 	"github.com/golang/protobuf/proto"
 	"github.com/thkhxm/tgf/example/common/api"
-	"github.com/thkhxm/tgf/example/login/pb"
+	"github.com/thkhxm/tgf/example/common/pb"
 	"github.com/thkhxm/tgf/robot"
 	"github.com/thkhxm/tgf/util"
 	"testing"

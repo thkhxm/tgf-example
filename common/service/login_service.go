@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"github.com/thkhxm/tgf/example/login/pb"
+	"github.com/thkhxm/tgf/example/common/pb"
 	"github.com/thkhxm/tgf/rpc"
 )
 

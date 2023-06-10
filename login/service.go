@@ -2,7 +2,7 @@ package login
 
 import (
 	"context"
-	"github.com/thkhxm/tgf/example/login/pb"
+	"github.com/thkhxm/tgf/example/common/pb"
 	"github.com/thkhxm/tgf/log"
 	"github.com/thkhxm/tgf/rpc"
 )
@@ -51,6 +51,7 @@ func (s *service) Login(ctx context.Context, args *rpc.Args[*pb.LoginReq], reply
 			return
 		}
 	}
+	//rpc.SendToGate(ctx, api.Login.ModuleName)
 	log.InfoTag("login", "user login account=%v password=%v userId=%v", req.Account, req.Password, res.UserId)
 	return
 }
