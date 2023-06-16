@@ -15,7 +15,6 @@ func Startup() {
 	r := rpc.NewRPCServer().
 		WithRandomServicePort(8000, 8010).
 		WithService(newService()).
-		WithWhiteService("Login").
 		Run()
 	<-r
 	//Server Destroy Logic

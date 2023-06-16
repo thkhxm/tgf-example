@@ -14,6 +14,7 @@ import "github.com/thkhxm/tgf/rpc"
 func Startup() {
 	r := rpc.NewRPCServer().
 		WithGatewayWS("8443", "/tgf").
+		WithWhiteService("Login").
 		Run()
 	<-r
 	//Server Destroy Logic

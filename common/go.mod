@@ -13,7 +13,7 @@ require (
 	github.com/panjf2000/ants/v2 v2.7.5 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.3 // indirect
-	github.com/thkhxm/tgf v0.0.0-20230610070822-d8ded9bbecae // indirect
+	github.com/thkhxm/tgf v0.0.0-20230612084835-12aff95ec6bc // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/xuri/efp v0.0.0-20230422071738-01f4e37c47e9 // indirect
 	github.com/xuri/excelize/v2 v2.7.1 // indirect

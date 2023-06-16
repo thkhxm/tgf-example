@@ -17,5 +17,6 @@ import (
 
 func main() {
 	util.SetAutoGenerateAPICodePath("../common/api")
+	util.SetAutoGenerateAPICSCode("E:\\unity\\project\\t2\\Assets\\HotFix\\Code", "HotFix.Code")
 	util.GeneratorAPI[service.ILoginService](login.ModuleName, login.Version, "api")
 }

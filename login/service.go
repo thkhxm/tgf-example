@@ -81,5 +81,6 @@ func newService() rpc.IService {
 	s := &service{}
 	s.Name = ModuleName
 	s.Version = Version
+	s.m = newLoginManager()
 	return s
 }
